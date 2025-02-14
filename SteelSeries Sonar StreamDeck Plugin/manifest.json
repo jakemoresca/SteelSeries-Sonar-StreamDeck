@@ -1,0 +1,108 @@
+{
+  "Actions": [
+    {
+      "Icon": "Images/volumeBar",
+      "Name": "Device Volume Bar",
+      "States": [
+        {
+          "Image": "Images/volumeBar",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Display a volume bar for a specific Sonar Device",
+      "UUID": "com.rydersir.sonargg.volumebar",
+      "PropertyInspectorPath": "PropertyInspector/volumebar.html"
+    },
+    {
+      "Icon": "Images/deviceVolumeAction",
+      "Name": "Device Volume",
+      "States": [
+        {
+          "Name": "Muted",
+          "Image": "Images/deviceVolumeAction",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        },
+        {
+          "Name": "Default",
+          "Image": "Images/deviceVolumeMutedAction",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Display current volume for a specific Sonar Device. It also acts as mute toggle.",
+      "UUID": "com.rydersir.sonargg.devicevolume",
+      "PropertyInspectorPath": "PropertyInspector/devicevolume.html",
+      "DisableAutomaticStates": true
+    },
+    {
+      "Icon": "Images/changeOutputDeviceAction",
+      "Name": "Toggle Output Device",
+      "States": [
+        {
+          "Name": "Output Device 1",
+          "Image": "Images/changeOutputDeviceAction",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        },
+        {
+          "Name": "Output Device 2",
+          "Image": "Images/changeOutputDeviceAction2",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles output device for a specific Sonar Device.",
+      "UUID": "com.rydersir.sonargg.changeoutputdevice",
+      "PropertyInspectorPath": "PropertyInspector/changeOutputDevice.html",
+      "DisableAutomaticStates": true
+    },
+    {
+      "Icon": "Images/changeInputDeviceAction",
+      "Name": "Toggle Input Device",
+      "States": [
+        {
+          "Name": "Input Device 1",
+          "Image": "Images/changeInputDeviceAction",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        },
+        {
+          "Name": "Input Device 2",
+          "Image": "Images/changeInputDeviceAction2",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles input device for a specific Sonar Device.",
+      "UUID": "com.rydersir.sonargg.changeinputdevice",
+      "PropertyInspectorPath": "PropertyInspector/changeOutputDevice.html",
+      "DisableAutomaticStates": true
+    }
+  ],
+  "Author": "rydersir",
+  "UUID": "com.rydersir.sonargg",
+  "Name": "SteelSeries Sonar StreamDeck",
+  "Description": "SteelSeries Sonar GG companion plugin for Stream Deck.",
+  "Icon": "Images/icon",
+  "URL": "https://github.com/jakemoresca",
+  "Version": "0.0.0.1",
+  "CodePath": "SteelSeries Sonar StreamDeck Plugin.exe",
+  "Category": "SteelSeries Sonar StreamDeck",
+  "CategoryIcon": "Images/categoryIcon",
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "6.4"
+  }
+}

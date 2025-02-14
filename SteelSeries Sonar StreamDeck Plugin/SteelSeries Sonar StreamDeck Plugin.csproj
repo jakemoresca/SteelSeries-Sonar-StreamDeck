@@ -1,0 +1,158 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>com.rydersir.sonargg</RootNamespace>
+    <LangVersion>8</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>com.rydersir.sonargg</AssemblyTitle>
+    <Product>com.rydersir.sonargg</Product>
+    <Copyright>Copyright © 2025</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	<PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\com.rydersir.sonargg.sdPlugin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\com.rydersir.sonargg.sdPlugin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Images\categoryIcon%402x.png" />
+    <None Remove="Images\categoryIcon%402x.svg" />
+    <None Remove="Images\categoryIcon.png" />
+    <None Remove="Images\categoryIcon.svg" />
+    <None Remove="Images\changeInputDeviceAction%402x.png" />
+    <None Remove="Images\changeInputDeviceAction%402x.svg" />
+    <None Remove="Images\changeInputDeviceAction.png" />
+    <None Remove="Images\changeInputDeviceAction.svg" />
+    <None Remove="Images\changeInputDeviceAction2%402x.png" />
+    <None Remove="Images\changeInputDeviceAction2%402x.svg" />
+    <None Remove="Images\changeInputDeviceAction2.png" />
+    <None Remove="Images\changeInputDeviceAction2.svg" />
+    <None Remove="Images\changeOutputDeviceAction%402x.png" />
+    <None Remove="Images\changeOutputDeviceAction%402x.svg" />
+    <None Remove="Images\changeOutputDeviceAction.png" />
+    <None Remove="Images\changeOutputDeviceAction.svg" />
+    <None Remove="Images\changeOutputDeviceAction2%402x.png" />
+    <None Remove="Images\changeOutputDeviceAction2%402x.svg" />
+    <None Remove="Images\changeOutputDeviceAction2.png" />
+    <None Remove="Images\changeOutputDeviceAction2.svg" />
+    <None Remove="Images\deviceVolumeAction%402x.png" />
+    <None Remove="Images\deviceVolumeAction%402x.svg" />
+    <None Remove="Images\deviceVolumeAction.png" />
+    <None Remove="Images\deviceVolumeAction.svg" />
+    <None Remove="Images\deviceVolumeMutedAction%402x.png" />
+    <None Remove="Images\deviceVolumeMutedAction%402x.svg" />
+    <None Remove="Images\deviceVolumeMutedAction.png" />
+    <None Remove="Images\deviceVolumeMutedAction.svg" />
+    <None Remove="Images\icon%402x.png" />
+    <None Remove="Images\icon%402x.svg" />
+    <None Remove="Images\icon.png" />
+    <None Remove="Images\icon.svg" />
+    <None Remove="Images\volumeBar%402x.png" />
+    <None Remove="Images\volumeBar%402x.svg" />
+    <None Remove="Images\volumeBar.png" />
+    <None Remove="Images\volumeBar.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="DialLayout.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="!!README!!.txt" />
+    <Content Include="Images\categoryIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\categoryIcon@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeInputDeviceAction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeInputDeviceAction2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeInputDeviceAction2@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeInputDeviceAction@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeOutputDeviceAction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeOutputDeviceAction2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeOutputDeviceAction2@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\changeOutputDeviceAction@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\deviceVolumeAction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\deviceVolumeAction@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\deviceVolumeMutedAction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\deviceVolumeMutedAction@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\icon@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\volumeBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\volumeBar@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PropertyInspector\changeInputDevice.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PropertyInspector\changeOutputDevice.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PropertyInspector\DialActionPI.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PropertyInspector\devicevolume.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PropertyInspector\volumebar.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="5.4.0" />
+    <PackageReference Include="Steelseries-NET-API" Version="1.0.4" />
+    <PackageReference Include="StreamDeck-Tools" Version="6.3.1" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.2" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="8.1.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.1.1" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="6.0.0" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="8.1.1" />
+    <PackageReference Include="System.ServiceModel.Security" Version="6.0.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="8.1.1" />
+  </ItemGroup>
+</Project>
