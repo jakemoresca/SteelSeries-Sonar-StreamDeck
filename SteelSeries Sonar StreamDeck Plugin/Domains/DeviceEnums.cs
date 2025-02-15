@@ -11,4 +11,10 @@ namespace com.rydersir.sonargg.Domains
         Increase = 0,
         Decrease = 1
     }
+
+    public enum DisplayOrientation
+    {
+        Vertical = 0,
+        Horizontal = 1
+    }
 }

@@ -18,6 +18,10 @@ namespace com.rydersir.sonargg
     [PluginActionId("com.rydersir.sonargg.volumebar")]
     public class VolumeBarAction : KeypadBase
     {
+        const string DEFAULT_TRACKER_COLOR = "#dddddd";
+        const string DEFAULT_VOLUME_BORDER_COLOR = "#ffffff";
+        const string DEFAULT_VOLUME_LEVEL_COLOR = "#ffffff";
+
         private class PluginSettings
         {
             public static PluginSettings CreateDefaultSettings()
@@ -25,18 +29,35 @@ namespace com.rydersir.sonargg
                 PluginSettings instance = new PluginSettings();
                 instance.SonarDevice = (int)Device.Game;
                 instance.VolumeOperation = (int)VolumeOperation.Increase;
+                instance.Orientation = (int)DisplayOrientation.Vertical;
                 instance.Amount = 5;
+                instance.DisplayTracker = true;
                 return instance;
             }
 
             [JsonProperty(PropertyName = "sonarDevice")]
             public int SonarDevice { get; set; }
 
+            [JsonProperty(PropertyName = "orientation")]
+            public DisplayOrientation Orientation { get; set; }
+
             [JsonProperty(PropertyName = "volumeOperation")]
             public VolumeOperation VolumeOperation { get; set; }
 
             [JsonProperty(PropertyName = "amount")]
             public int Amount { get; set; }
+
+            [JsonProperty(PropertyName = "displayTracker")]
+            public bool DisplayTracker { get; set; }
+
+            [JsonProperty(PropertyName = "trackerColor")]
+            public string TrackerColor { get; set; }
+
+            [JsonProperty(PropertyName = "volumeBorderColor")]
+            public string VolumeBorderColor { get; set; }
+
+            [JsonProperty(PropertyName = "volumeLevelColor")]
+            public string VolumeLevelColor { get; set; }
         }
 
         #region Private Members
@@ -90,12 +111,20 @@ namespace com.rydersir.sonargg
 
         public override void KeyReleased(KeyPayload payload) { }
 
-        public override async void OnTick() 
+        public override async void OnTick()
         {
             try
             {
                 var mediaVolume = sonarManager.GetVolume((Device)settings.SonarDevice);
-                await DisplayVolumeBar(mediaVolume);
+
+                if (settings.Orientation == DisplayOrientation.Vertical)
+                {
+                    await DisplayVerticalVolumeBar(mediaVolume);
+                }
+                else if (settings.Orientation == DisplayOrientation.Horizontal)
+                {
+                    await DisplayHorizontalVolumeBar(mediaVolume);
+                }
             }
             catch (Exception)
             {
@@ -117,9 +146,18 @@ namespace com.rydersir.sonargg
             return Connection.SetSettingsAsync(JObject.FromObject(settings));
         }
 
-        private async Task DisplayVolumeBar(double volume)
+        private async Task DisplayVerticalVolumeBar(double volume)
         {
             var displayTopHalf = settings.VolumeOperation == VolumeOperation.Increase;
+            var colorConverter = new ColorConverter();
+
+            var volumeBorderColor = string.IsNullOrEmpty(settings.VolumeBorderColor) ? DEFAULT_VOLUME_BORDER_COLOR : settings.VolumeBorderColor;
+            var volumeLevelColor = string.IsNullOrEmpty(settings.VolumeLevelColor) ? DEFAULT_VOLUME_LEVEL_COLOR : settings.VolumeLevelColor;
+            var trackerColor = string.IsNullOrEmpty(settings.TrackerColor) ? DEFAULT_TRACKER_COLOR : settings.TrackerColor;
+
+            var volumeBorderBrush = new SolidBrush((Color)colorConverter.ConvertFromString(volumeBorderColor));
+            var volumeLevelBrush = new SolidBrush((Color)colorConverter.ConvertFromString(volumeLevelColor));
+            var trackerBrush = new SolidBrush((Color)colorConverter.ConvertFromString(trackerColor));
 
             using var bitmap = Tools.GenerateGenericKeyImage(out var graphics);
             var height = bitmap.Height;
@@ -162,9 +200,8 @@ namespace com.rydersir.sonargg
                 path.AddArc(rectX + rectWidth - rectRx * 2, rectHeight - rectRy * 2, rectRx * 2, rectRy * 2, 0, 90);
                 path.AddArc(rectX, rectHeight - rectRy * 2, rectRx * 2, rectRy * 2, 90, 90);
                 path.CloseFigure();
-                //graphics.FillPath(Brushes.LightGray, path);
 
-                var pen = new Pen(Color.LightGray, 2);
+                var pen = new Pen(volumeBorderBrush.Color, 2);
                 graphics.DrawPath(pen, path);
             }
 
@@ -176,17 +213,93 @@ namespace com.rydersir.sonargg
                 volumePath.AddArc(rectX + rectWidth - rectRx * 2, volumeY + volumeHeight - rectRy * 2, rectRx * 2, rectRy * 2, 0, 90);
                 volumePath.AddArc(rectX, volumeY + volumeHeight - rectRy * 2, rectRx * 2, rectRy * 2, 90, 90);
                 volumePath.CloseFigure();
-                graphics.FillPath(Brushes.Green, volumePath);
+
+                graphics.FillPath(volumeLevelBrush, volumePath);
             }
 
-            //// Draw the background rectangle
-            //graphics.FillRectangle(Brushes.LightGray, rectX, 0, rectWidth, rectHeight);
+            if (settings.DisplayTracker)
+            {
+                // Draw the wider circular tracker using the calculated values
+                graphics.FillEllipse(trackerBrush, circleX, circleY, circleDiameter, circleDiameter);
+            }
 
-            //// Draw the current volume level
-            //graphics.FillRectangle(Brushes.Green, rectX, volumeY, rectWidth, volumeHeight);
+            await Connection.SetImageAsync(bitmap);
+        }
 
-            // Draw the wider circular tracker using the calculated values
-            graphics.FillEllipse(Brushes.OrangeRed, circleX, circleY, circleDiameter, circleDiameter);
+        private async Task DisplayHorizontalVolumeBar(double volume)
+        {
+            var displayRight = settings.VolumeOperation == VolumeOperation.Increase;
+            var colorConverter = new ColorConverter();
+
+            var volumeBorderColor = string.IsNullOrEmpty(settings.VolumeBorderColor) ? DEFAULT_VOLUME_BORDER_COLOR : settings.VolumeBorderColor;
+            var volumeLevelColor = string.IsNullOrEmpty(settings.VolumeLevelColor) ? DEFAULT_VOLUME_LEVEL_COLOR : settings.VolumeLevelColor;
+            var trackerColor = string.IsNullOrEmpty(settings.TrackerColor) ? DEFAULT_TRACKER_COLOR : settings.TrackerColor;
+
+            var volumeBorderBrush = new SolidBrush((Color)colorConverter.ConvertFromString(volumeBorderColor));
+            var volumeLevelBrush = new SolidBrush((Color)colorConverter.ConvertFromString(volumeLevelColor));
+            var trackerBrush = new SolidBrush((Color)colorConverter.ConvertFromString(trackerColor));
+
+            using var bitmap = Tools.GenerateGenericKeyImage(out var graphics);
+            var height = bitmap.Height;
+            var width = bitmap.Width;
+
+            int padding = 1;  // Padding on the left and right
+
+            // SVG properties for the elements
+            var rectWidth = (width - 2 * padding) * 2;  // Adjusted to include padding
+            var rectHeight = 20;
+            var rectX = padding;
+            var rectY = (height - rectHeight) / 2;
+            var rectRx = 10;
+            var rectRy = 10;
+
+            var volumeWidth = (float)volume * rectWidth;
+            var volumeX = padding;
+
+            var cx = (int)volumeWidth; //displayRight ? width - padding - (int)(rectWidth * volume) / 2 : padding + (int)(rectWidth * volume) / 2;
+            var cy = height / 2;
+            var r = 15;
+
+            int circleX = cx - r;
+            int circleY = cy - r;
+            int circleDiameter = 2 * r;
+
+            // Translate the graphics object to the viewBox origin
+            graphics.TranslateTransform(displayRight ? -width : -padding, 0);
+
+            // Set the background color
+            graphics.Clear(Color.Transparent);
+
+            // Draw the background rectangle with borders and no fill
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(rectX, rectY, rectRx * 2, rectRy * 2, 180, 90);
+                path.AddArc(rectX + rectWidth - rectRx * 2, rectY, rectRx * 2, rectRy * 2, 270, 90);
+                path.AddArc(rectX + rectWidth - rectRx * 2, rectY + rectHeight - rectRy * 2, rectRx * 2, rectRy * 2, 0, 90);
+                path.AddArc(rectX, rectY + rectHeight - rectRy * 2, rectRx * 2, rectRy * 2, 90, 90);
+                path.CloseFigure();
+
+                var pen = new Pen(volumeBorderBrush.Color, 2);
+                graphics.DrawPath(pen, path);
+            }
+
+            // Draw the current volume level with rounded corners
+            using (GraphicsPath volumePath = new GraphicsPath())
+            {
+                volumePath.AddArc(volumeX, rectY, rectRx * 2, rectRy * 2, 180, 90);
+                volumePath.AddArc(volumeX + volumeWidth - rectRx * 2, rectY, rectRx * 2, rectRy * 2, 270, 90);
+                volumePath.AddArc(volumeX + volumeWidth - rectRx * 2, rectY + rectHeight - rectRy * 2, rectRx * 2, rectRy * 2, 0, 90);
+                volumePath.AddArc(volumeX, rectY + rectHeight - rectRy * 2, rectRx * 2, rectRy * 2, 90, 90);
+                volumePath.CloseFigure();
+
+                graphics.FillPath(volumeLevelBrush, volumePath);
+            }
+
+            if (settings.DisplayTracker)
+            {
+                // Draw the wider circular tracker
+                graphics.FillEllipse(trackerBrush, circleX, circleY, circleDiameter, circleDiameter);
+            }
 
             await Connection.SetImageAsync(bitmap);
         }

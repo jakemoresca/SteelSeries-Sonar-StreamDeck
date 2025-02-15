@@ -32,8 +32,39 @@
         </div>
 
         <div class="sdpi-item">
+            <div class="sdpi-item-label">Orientation</div>
+            <select class="sdProperty" id="orientation" setting="orientation" placeholder="Orientation" oninput="setSettings()">
+                <option value="0">Vertical</option>
+                <option value="1">Horizontal</option>
+            </select>
+        </div>
+
+        <div class="sdpi-item">
             <div class="sdpi-item-label">Amount</div>
             <input class="sdProperty" id="amount" setting="amount" oninput="setSettings()" placeholder="Amount" />
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Display Tracker</div>
+            <select class="sdProperty" id="displayTracker" setting="displayTracker" placeholder="Display Tracker" oninput="setSettings()">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Tracker Hex Color</div>
+            <input class="sdProperty" id="trackerColor" oninput="setSettings()">
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Volume Bar Hex Color</div>
+            <input class="sdProperty" id="volumeBorderColor" oninput="setSettings()">
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Volume Level Hex Color</div>
+            <input class="sdProperty" id="volumeLevelColor" oninput="setSettings()">
         </div>
     </div>
 </body>
