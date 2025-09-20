@@ -1,17 +1,13 @@
 ﻿using BarRaider.SdTools;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SteelSeriesAPI;
 using SteelSeriesAPI.Sonar.Enums;
 using com.rydersir.sonargg.Domains;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
+using SteelSeriesAPI.Sonar;
 
 namespace com.rydersir.sonargg
 {
@@ -27,7 +23,7 @@ namespace com.rydersir.sonargg
             public static PluginSettings CreateDefaultSettings()
             {
                 PluginSettings instance = new PluginSettings();
-                instance.SonarDevice = (int)Device.Game;
+                instance.SonarDevice = (int)Channel.GAME;
                 instance.VolumeOperation = (int)VolumeOperation.Increase;
                 instance.Orientation = (int)DisplayOrientation.Vertical;
                 instance.Amount = 5;
@@ -89,7 +85,7 @@ namespace com.rydersir.sonargg
         public override void KeyPressed(KeyPayload payload)
         {
             Logger.Instance.LogMessage(TracingLevel.INFO, "Key Pressed");
-            var currentVolume = sonarManager.GetVolume((Device)settings.SonarDevice);
+            var currentVolume = sonarManager.VolumeSettings.GetVolume((Channel)settings.SonarDevice);
             var amount = settings.Amount;
 
             switch (settings.VolumeOperation)
@@ -106,7 +102,7 @@ namespace com.rydersir.sonargg
             }
 
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Setting volume of {settings.SonarDevice} to {currentVolume}");
-            sonarManager.SetVolume(currentVolume, (Device)settings.SonarDevice);
+            sonarManager.VolumeSettings.SetVolume(currentVolume, (Channel)settings.SonarDevice);
         }
 
         public override void KeyReleased(KeyPayload payload) { }
@@ -115,7 +111,7 @@ namespace com.rydersir.sonargg
         {
             try
             {
-                var mediaVolume = sonarManager.GetVolume((Device)settings.SonarDevice);
+                var mediaVolume = sonarManager.VolumeSettings.GetVolume((Channel)settings.SonarDevice);
 
                 if (settings.Orientation == DisplayOrientation.Vertical)
                 {

@@ -8,7 +8,7 @@ namespace com.rydersir.sonargg.Domains
         {
         }
 
-        public RedirectionDevice(SteelSeriesAPI.Sonar.Models.RedirectionDevice sonarRedirectionDevice)
+        public RedirectionDevice(SteelSeriesAPI.Sonar.Models.PlaybackDevice sonarRedirectionDevice)
         {
             Id = sonarRedirectionDevice.Id;
             Name = sonarRedirectionDevice.Name;

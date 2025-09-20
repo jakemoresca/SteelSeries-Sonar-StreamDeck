@@ -1,13 +1,13 @@
 ﻿using BarRaider.SdTools;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SteelSeriesAPI;
 using SteelSeriesAPI.Sonar.Enums;
 using com.rydersir.sonargg.Domains;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using SteelSeriesAPI.Sonar;
 
 namespace com.rydersir.sonargg
 {
@@ -20,7 +20,7 @@ namespace com.rydersir.sonargg
             {
                 PluginSettings instance = new PluginSettings();
 
-                instance.SonarDevice = (int)Device.Game;
+                instance.SonarDevice = (int)Channel.GAME;
                 instance.RedirectionDevices1 = new List<RedirectionDevice>();
                 instance.RedirectionDevices2 = new List<RedirectionDevice>();
 
@@ -78,15 +78,15 @@ namespace com.rydersir.sonargg
                 return; 
             }
 
-            var currentRedirectionDevice = new RedirectionDevice(sonarManager.GetClassicRedirectionDevice((Device)settings.SonarDevice));
-            if (currentRedirectionDevice.Id == settings.RedirectionDevice1)
+            var currentPlaybackDevice = sonarManager.PlaybackDevices.GetPlaybackDevice((Channel)settings.SonarDevice);
+            if (currentPlaybackDevice.Id == settings.RedirectionDevice1)
             {
-                sonarManager.SetClassicRedirectionDevice(settings.RedirectionDevice2, (Device)settings.SonarDevice);
+                sonarManager.PlaybackDevices.SetPlaybackDevice(settings.RedirectionDevice2, (Channel)settings.SonarDevice);
                 await Connection.SetStateAsync(1);
             }
             else
             {
-                sonarManager.SetClassicRedirectionDevice(settings.RedirectionDevice1, (Device)settings.SonarDevice);
+                sonarManager.PlaybackDevices.SetPlaybackDevice(settings.RedirectionDevice1, (Channel)settings.SonarDevice);
                 await Connection.SetStateAsync(0);
             }
         }
@@ -104,9 +104,8 @@ namespace com.rydersir.sonargg
 
                 if (settings.RedirectionDevices1 == null || settings.RedirectionDevices2 == null || settings.RedirectionDevices1?.Count == 0 || settings.RedirectionDevices2?.Count == 0)
                 {
-                    var devices = sonarManager.GetRedirectionDevices(Direction.Output).ToList();
-
-                    if (devices.Count > 0)
+                    var devices = sonarManager.PlaybackDevices.GetOutputPlaybackDevices();
+                    if (devices.Any())
                     {
                         settings.RedirectionDevices1 = devices.Select(x => new RedirectionDevice(x)).ToList();
                         settings.RedirectionDevices2 = devices.Select(x => new RedirectionDevice(x)).ToList();
@@ -115,12 +114,12 @@ namespace com.rydersir.sonargg
                     return;
                 }
 
-                var currentRedirectionDevice = new RedirectionDevice(sonarManager.GetClassicRedirectionDevice((Device)settings.SonarDevice));
-                if (currentRedirectionDevice.Id == settings.RedirectionDevice1)
+                var currentPlaybackDevice = sonarManager.PlaybackDevices.GetPlaybackDevice((Channel)settings.SonarDevice);
+                if (currentPlaybackDevice.Id == settings.RedirectionDevice1)
                 {
                     await Connection.SetStateAsync(0);
                 }
-                else if(currentRedirectionDevice.Id == settings.RedirectionDevice2)
+                else if(currentPlaybackDevice.Id == settings.RedirectionDevice2)
                 {
                     await Connection.SetStateAsync(1);
                 }
