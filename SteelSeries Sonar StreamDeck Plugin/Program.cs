@@ -1,14 +1,8 @@
 ﻿using BarRaider.SdTools;
-using SteelSeriesAPI;
+using SteelSeriesAPI.Sonar;
 using SteelSeriesAPI.Sonar.Enums;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace com.rydersir.sonargg
 {
@@ -20,7 +14,7 @@ namespace com.rydersir.sonargg
             //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
 
             var sonarManager = new SonarBridge();
-            var volume = sonarManager.GetVolume(Device.Game);
+            var volume = sonarManager.VolumeSettings.GetVolume(Channel.GAME);
             DrawVolume(volume, false, "left.png");
             DrawVolume(volume, true, "right.png");
 

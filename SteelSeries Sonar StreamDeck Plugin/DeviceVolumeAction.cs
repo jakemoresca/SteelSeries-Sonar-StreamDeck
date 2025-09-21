@@ -1,18 +1,10 @@
 ﻿using BarRaider.SdTools;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SteelSeriesAPI;
 using SteelSeriesAPI.Sonar.Enums;
-using com.rydersir.sonargg.Domains;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Drawing.Drawing2D;
-using System.Diagnostics;
+using SteelSeriesAPI.Sonar;
 
 namespace com.rydersir.sonargg
 {
@@ -24,7 +16,7 @@ namespace com.rydersir.sonargg
             public static PluginSettings CreateDefaultSettings()
             {
                 PluginSettings instance = new PluginSettings();
-                instance.SonarDevice = (int)Device.Game;
+                instance.SonarDevice = (int)Channel.GAME;
                 return instance;
             }
 
@@ -62,7 +54,7 @@ namespace com.rydersir.sonargg
         {
             Logger.Instance.LogMessage(TracingLevel.INFO, "Key Pressed");
 
-            var isMuted = sonarManager.GetMute((Device)settings.SonarDevice);
+            var isMuted = sonarManager.VolumeSettings.GetMute((Channel)settings.SonarDevice);
             var toggleAction = !isMuted;
             if (toggleAction)
             {
@@ -73,7 +65,7 @@ namespace com.rydersir.sonargg
                 await Connection.SetStateAsync(0);
             }
 
-            sonarManager.SetMute(toggleAction, (Device)settings.SonarDevice);
+            sonarManager.VolumeSettings.SetMute(toggleAction, (Channel)settings.SonarDevice);
         }
 
         public override void KeyReleased(KeyPayload payload) { }
@@ -87,10 +79,10 @@ namespace com.rydersir.sonargg
                     await Connection.ShowAlert();
                 }
 
-                var mediaVolume = sonarManager.GetVolume((Device)settings.SonarDevice);
+                var mediaVolume = sonarManager.VolumeSettings.GetVolume((Channel)settings.SonarDevice);
                 await DisplayVolumeBar(mediaVolume);
 
-                var isMuted = sonarManager.GetMute((Device)settings.SonarDevice);
+                var isMuted = sonarManager.VolumeSettings.GetMute((Channel)settings.SonarDevice);
                 if (isMuted)
                 {
                     await Connection.SetStateAsync(1);
