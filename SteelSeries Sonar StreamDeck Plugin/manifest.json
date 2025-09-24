@@ -83,6 +83,35 @@
       "UUID": "com.rydersir.sonargg.changeinputdevice",
       "PropertyInspectorPath": "PropertyInspector/changeOutputDevice.html",
       "DisableAutomaticStates": true
+    },
+    {
+      "Icon": "Images/nextApp",
+      "Name": "Navigate App",
+      "States": [
+        {
+          "Name": "Next Page",
+          "Image": "Images/nextApp",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        },
+        {
+          "Name": "Previous Page",
+          "Image": "Images/previousApp",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        },
+        {
+          "Name": "Display App",
+          "Image": "Images/displayApp",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Navigate/Set an app in a Sonar Channel",
+      "UUID": "com.rydersir.sonargg.navigateapp",
+      "PropertyInspectorPath": "PropertyInspector/navigateApp.html",
+      "DisableAutomaticStates": true
     }
   ],
   "Author": "rydersir",

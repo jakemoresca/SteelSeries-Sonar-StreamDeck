@@ -13,10 +13,14 @@ namespace com.rydersir.sonargg
             // Uncomment this line of code to allow for debugging
             //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
 
+            /*
             var sonarManager = new SonarBridge();
             var volume = sonarManager.VolumeSettings.GetVolume(Channel.GAME);
             DrawVolume(volume, false, "left.png");
             DrawVolume(volume, true, "right.png");
+
+            SDWrapper.Run(args);
+            */
 
             SDWrapper.Run(args);
         }

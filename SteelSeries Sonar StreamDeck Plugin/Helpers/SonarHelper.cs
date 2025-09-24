@@ -102,6 +102,7 @@ namespace com.rydersir.sonargg.Helpers
             sonarManager.RoutedProcesses.GetActiveRoutedProcessesById(10548);
             // Route a process to a Sonar Channel using the RoutedProcess object
             sonarManager.RoutedProcesses.RouteProcessToChannel(mediaActiveProcesses[0], Channel.AUX);
+
             // Route a process to a Sonar Channel using its process ID (pid)
             sonarManager.RoutedProcesses.RouteProcessToChannel(15482, Channel.MEDIA);
         }
